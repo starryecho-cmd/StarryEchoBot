@@ -199,9 +199,9 @@ bot.on("chatCreate", async (user, message) => {
         // Ignore bot's own message
         if (userResponse.id === bot.info.user.id) return;
   
-        if (messageResponse.startsWith("!")) {
+        if (messageResponse.startsWith("-ans")) {
           // Parse user's answer
-          const userAnswer = parseFloat(messageResponse.split("!")[1]);
+          const userAnswer = parseFloat(messageResponse.split("-ans")[1]);
   
           if (!isNaN(userAnswer)) {
             // Round the answer to 2 decimal places
