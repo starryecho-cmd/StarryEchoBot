@@ -451,7 +451,7 @@ bot.on("chatCreate", (user, message) => {
 
     // Ensure that the user is not trying to teleport to the bot
     if (targetPlayer.username === bot.info.user.username || targetPlayer.username === "WaiterHome") {
-        bot.message.send("You cannot teleport to the bot.");
+        bot.message.send(`${user.username} cannot teleport to the bot.`);
         return;
     }
 
@@ -467,7 +467,7 @@ bot.on("chatCreate", (user, message) => {
     // Perform teleportation to the target player's coordinates
     bot.player.teleport(user.id, x, y, z, Facing.FrontLeft)
       .then(() => {
-        bot.message.send(`You have been teleported to ${targetUsername}'s location!`);
+        bot.message.send(`${user.username} have been teleported to ${targetUsername}'s location!`);
       })
       .catch(e => {
         console.error(`[ERROR] Failed to teleport:`, e);
