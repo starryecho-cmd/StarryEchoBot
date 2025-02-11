@@ -34,7 +34,50 @@ bot.on('ready', (session) => {
       .catch(e => console.error("[ERROR] Failed to teleport:", e));
 });
 
+//teleport floors
 
+bot.on("chatCreate",async(user,message)=>{
+    if(message.startsWith("!floor")){
+        const targetfloor = message.split(" ")[1];
+        if(targetfloor === "1"){
+            bot.player.teleport(user.id, 16.5, 8, 4, Facing.FrontRight);}
+        else if(targetfloor === "0"){
+            bot.player.teleport(user.id, 3.5, 0, 1, Facing.FrontRight);
+        }
+        }
+    });
+
+//summon command
+
+bot.on("chatCreate", async (user, message) => {
+    const args = message.split(" ");
+  
+    if (args[0] === "!summon" && args[1].startsWith("@")) {
+      const targetUsername = args[1].substring(1); // Remove '@' from username
+  
+      try {
+        // Get target user ID
+        const targetId = await bot.room.players.id(targetUsername);
+        if (!targetId) {
+          return bot.whisper.send(user.id, "User not found.");
+        }
+  
+        // Get the position of the command user
+        const userPosition = await bot.room.players.position(user.id);
+        if (!userPosition) {
+          return bot.whisper.send(user.id, "Could not retrieve your position.");
+        }
+  
+        // Teleport the target user to the command user's location
+        await bot.player.teleport(targetId, userPosition.x, userPosition.y, userPosition.z, userPosition.facing);
+        bot.whisper.send(user.id, `Successfully summoned ${targetUsername}.`);
+        bot.whisper.send(targetId, `You have been summoned by ${user.username}.`);
+      } catch (e) {
+        console.error(e);
+        bot.whisper.send(user.id, "An error occurred while summoning.");
+      }
+    }
+  });
 
 //Emote event
 
@@ -63,7 +106,7 @@ const emotes = {
   hot: { id: "emote-hot", duration: 4.8 },
   snowangel: { id: "emote-snowangel", duration: 6.8 },
   charge: { id: "emote-charging", duration: 8.5 },
-  cartdance: { id: "dance-shoppingcart", duration: 5 },
+  cartdance: { id: "dance-shoppingcart", duration: 8 },
   confused: { id: "emote-confused", duration: 9.3 },
   hype: { id: "idle-enthusiastic", duration: 16.5 },
   psychic: { id: "emote-telekinesis", duration: 11 },
@@ -71,7 +114,7 @@ const emotes = {
   teleport: { id: "emote-teleporting", duration: 12.5 },
   swordfight: { id: "emote-swordfight", duration: 6 },
   maniac: { id: "emote-maniac", duration: 5.5 },
-  energy: { id: "emote-energyball", duration: 8.3 },
+  energyball: { id: "emote-energyball", duration: 8.3 },
   snake: { id: "emote-snake", duration: 6 },
   sing: { id: "idle_singing", duration: 11 },
   frog: { id: "emote-frog", duration: 15 },
@@ -79,10 +122,25 @@ const emotes = {
   cute: { id: "emote-cute", duration: 7.3 },
   tiktok9: { id: "dance-tiktok9", duration: 13 },
   weird: { id: "dance-weird", duration: 22 },
+  tiktok10: { id: "dance-tiktok10", duration: 9 },
+  pose7: { id: "emote-pose7", duration: 5.3 },
+  pose8: { id: "emote-pose8", duration: 4.6 },
+  casualdance: { id: "idle-dance-casual", duration: 9.7 },
+  pose1: { id: "emote-pose1", duration: 3 },
+  pose3: { id: "emote-pose3", duration: 4.7 },
+  pose5: { id: "emote-pose5", duration: 5 },
+  cutey: { id: "emote-cutey", duration: 3.5 },
+  punkguitar: { id: "emote-punkguitar", duration: 10 },
+  zombierun: { id: "emote-zombierun", duration: 10 },
+  fashionista: { id: "emote-fashionista", duration: 6 },
+  gravity: {id: "emote-gravity", duration: 9.8},
+  icecream: { id: "dance-icecream", duration: 15 },
+  wrongdance: { id: "dance-wrong", duration: 13 },
+  uwu: { id: "idle-uwu", duration: 25 },
+  tiktok4: { id: "idle-dance-tiktok4", duration: 16 },
   shy: { id: "emote-shy2", duration: 5 },
   anime: { id: "dance-anime", duration: 7.8 },
 };
-
 const emotePages = Math.ceil(Object.keys(emotes).length / 7);
 
 bot.on("chatCreate", async (user, message) => {
