@@ -34,19 +34,6 @@ bot.on('ready', (session) => {
       .catch(e => console.error("[ERROR] Failed to teleport:", e));
 });
 
-//teleport floors
-
-bot.on("chatCreate",async(user,message)=>{
-    if(message.startsWith("!floor")){
-        const targetfloor = message.split(" ")[1];
-        if(targetfloor === "1"){
-            bot.player.teleport(user.id, 16.5, 8, 4, Facing.FrontRight);}
-        else if(targetfloor === "0"){
-            bot.player.teleport(user.id, 3.5, 0, 1, Facing.FrontRight);
-        }
-        }
-    });
-
 //summon command
 
 bot.on("chatCreate", async (user, message) => {
