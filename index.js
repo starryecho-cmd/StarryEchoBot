@@ -65,7 +65,9 @@ bot.on("chatCreate", async (user, message) => {
       }
     }
   });
-
+setInterval(() => {
+    bot.message.send(`You can access the bot commands using: \n\n\t!assist`);
+}, 60000); 
 //Emote event
 
 const activeLoops = new Map(); // Stores looping emotes per user
