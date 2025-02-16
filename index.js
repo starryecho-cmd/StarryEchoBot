@@ -21,7 +21,7 @@ bot.on('ready', (session) => {
     console.log("[READY] Bot is ready!".green + ` Session: ${session}`);
   
       bot.outfit.change("default").catch(e => console.error(e));
-    bot.player.teleport(bot.info.user.id, 0.5, 0, 1.5, Facing.FrontLeft)
+    bot.player.teleport(bot.info.user.id, 0.5, 0, 1.5, Facing.FrontRight)
       .catch(e => console.error("[ERROR] Failed to teleport:", e));
 });
 
@@ -416,8 +416,10 @@ bot.on("chatCreate", async (user, message) => {
             .then(() => console.log(`[EMOTE] ${user.username} performed a bow`))
             .catch(e => console.error(`[ERROR] Failed to perform emote:`, e));
   
-          // Send welcome message
-          bot.message.send(`Welcome to the room, ${user.username}!`);
+          if(user.username ==="Xo_Hinata"{
+              bot.message.send("💖 Welcome, My Love! 💖\nYou are my heart, my peace, and my forever. ❤️♾️ Life is beautiful with you by my side! 🥰✨")
+          }else{
+          bot.message.send(`Welcome, ${user.username}!`);}
   
           // Update the player's coordinates in playerData.json
           const updatedData = {
