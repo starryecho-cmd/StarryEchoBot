@@ -416,10 +416,14 @@ bot.on("chatCreate", async (user, message) => {
             .then(() => console.log(`[EMOTE] ${user.username} performed a bow`))
             .catch(e => console.error(`[ERROR] Failed to perform emote:`, e));
   
-          if(user.username ==="Xo_Hinata"{
-              bot.message.send("💖 Welcome, My Love! 💖\nYou are my heart, my peace, and my forever. ❤️♾️ Life is beautiful with you by my side! 🥰✨")
-          }else{
-          bot.message.send(`Welcome, ${user.username}!`);}
+          if(user.username ==="Xo_Hinata"){
+              bot.message.send("💖 Welcome, My Love! 💖\nYou are my heart, my peace, and my forever. ❤️♾️ Life is beautiful with you by my side! 🥰✨");
+          }else if(user.id === bot.info.owner.id){
+              bot.message.send("🙏 Welcome, Boss! 🙏\nIt's an honor to have you here. Looking forward to learning and growing under your guidance. Your leadership inspires us! 🙌✨");
+          }
+          else{
+              bot.message.send(`Welcome, ${user.username}!`);
+          }
   
           // Update the player's coordinates in playerData.json
           const updatedData = {
