@@ -1,8 +1,8 @@
 const { Highrise, Events, Emotes} = require('highrise.sdk.dev');
 const { Facing } = require("highrise.sdk.dev");
 const { Reactions } = require("highrise.sdk.dev");
-const token = "f124ea2328684c9c7082cd2a0f23e37e4bb5b512df5180295c253be13020f31d";
-const room = "676d06cea71bfa2ab69b554e";
+const token = "992058abc50884126ac2e3b999a60d374784acfad2d7b766c52f9998aec2c762";
+const room = "67b1e4fc55ebc582ef1166ec";
 const bot = new Highrise({
     Events: [
         Events.Messages,
@@ -417,7 +417,7 @@ bot.on("chatCreate", async (user, message) => {
     console.log(`[PLAYER JOINED]: ${user.username}:${user.id} - ${JSON.stringify(position)}`);
   
     // Teleport the user to a specific location
-    bot.player.teleport(user.id, 3.5, 0, 1, Facing.FrontRight)
+    bot.player.teleport(user.id, 7.5, 0, 6.5, Facing.FrontLeft)
       .then(() => {
         // Wait 0.5 seconds before playing emote
         setTimeout(() => {
@@ -432,8 +432,8 @@ bot.on("chatCreate", async (user, message) => {
           const updatedData = {
             username: user.username,
             userId: user.id,
-            position: { x: 3.5, y: 0, z: 1 }, // The coordinates to which the player was teleported
-            facing: 'FrontRight'
+            position: { x: 7.5, y: 0, z: 6.5 }, // The coordinates to which the player was teleported
+            facing: 'FrontLeft'
           };
   
           // Read the current player data from the file
