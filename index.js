@@ -21,7 +21,7 @@ bot.on('ready', (session) => {
     console.log("[READY] Bot is ready!".green + ` Session: ${session}`);
   
       bot.outfit.change("default").catch(e => console.error(e));
-    bot.player.teleport(bot.info.user.id, 4.5, 0, 1, Facing.FrontLeft)
+    bot.player.teleport(bot.info.user.id, 0.5, 0, 1.5, Facing.FrontLeft)
       .catch(e => console.error("[ERROR] Failed to teleport:", e));
 });
 
