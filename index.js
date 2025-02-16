@@ -19,17 +19,8 @@ const bot = new Highrise({
 
 bot.on('ready', (session) => {
     console.log("[READY] Bot is ready!".green + ` Session: ${session}`);
-    const outfit = [
-        {
-          type: 'clothing',
-          amount: 1,
-          id: 'body-flesh', // Important
-          account_bound: false,
-          active_palette: 27
-        },
-      ];
   
-      bot.outfit.change(outfit).catch(e => console.error(e));
+      bot.outfit.change("default").catch(e => console.error(e));
     bot.player.teleport(bot.info.user.id, 4.5, 0, 1, Facing.FrontLeft)
       .catch(e => console.error("[ERROR] Failed to teleport:", e));
 });
