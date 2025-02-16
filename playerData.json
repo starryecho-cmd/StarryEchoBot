@@ -1,29 +1,3 @@
 {
-  "66ce8153010c6659dd76e1d1": {
-    "username": "StarryEcho",
-    "position": {
-      "x": 5,
-      "y": 0,
-      "z": 16,
-      "facing": "FrontRight"
-    }
-  },
-  "674880c61ede9573ceca7ac0": {
-    "username": "TropicSouring",
-    "position": {
-      "x": 8,
-      "y": 0,
-      "z": 18.5,
-      "facing": "FrontRight"
-    }
-  },
-  "6782d09d34abf783a1ec270c": {
-    "username": "WaiterHome",
-    "position": {
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "facing": "FrontRight"
-    }
-  }
+  
 }
