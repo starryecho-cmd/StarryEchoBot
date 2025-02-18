@@ -16,37 +16,7 @@ const bot = new Highrise({
 });
 
 // Log that the bot is ready.
-function performRandomEmote(userId) {
-  // Get all emote names
-  const emoteNames = Object.keys(emotes1);
 
-  // Select a random emote
-  const randomIndex = Math.floor(Math.random() * emoteNames.length);
-  const emoteName = emoteNames[randomIndex];
-  const emote = emotes1[emoteName];
-
-  // Execute the emote
-  bot.player.emote(userId, emote.id)
-    .then(() => {
-      // Wait for the emote duration before choosing the next one
-      setTimeout(() => {
-        performRandomEmote(userId); // Recursively call itself
-      }, (emote.duration+2) * 1000);
-    })
-    .catch((error) => {
-      console.error(`[ERROR] Emote execution failed: ${emoteName}`, error);
-      
-      // Retry with a new emote after a short delay (1 sec)
-      setTimeout(() => {
-        performRandomEmote(userId);
-      }, 1000);
-    });
-}
-
-// Start performing random emotes when the bot is ready
-bot.on("ready", async () => {
-  performRandomEmote();
-});
 bot.on('ready', (session) => {
     console.log("[READY] Bot is ready!".green + ` Session: ${session}`);
   
@@ -149,6 +119,37 @@ const emotes = {
   shy: { id: "emote-shy2", duration: 5 },
   anime: { id: "dance-anime", duration: 7.8 },
 };
+function performRandomEmote(userId) {
+  // Get all emote names
+  const emoteNames = Object.keys(emotes);
+
+  // Select a random emote
+  const randomIndex = Math.floor(Math.random() * emoteNames.length);
+  const emoteName = emoteNames[randomIndex];
+  const emote = emotes[emoteName];
+
+  // Execute the emote
+  bot.player.emote(userId, emote.id)
+    .then(() => {
+      // Wait for the emote duration before choosing the next one
+      setTimeout(() => {
+        performRandomEmote(userId); // Recursively call itself
+      }, (emote.duration+2) * 1000);
+    })
+    .catch((error) => {
+      console.error(`[ERROR] Emote execution failed: ${emoteName}`, error);
+      
+      // Retry with a new emote after a short delay (1 sec)
+      setTimeout(() => {
+        performRandomEmote(userId);
+      }, 1000);
+    });
+}
+
+// Start performing random emotes when the bot is ready
+bot.on("ready", async () => {
+  performRandomEmote();
+});
 const emotePages = Math.ceil(Object.keys(emotes).length / 7);
 
 bot.on("chatCreate", async (user, message) => {
