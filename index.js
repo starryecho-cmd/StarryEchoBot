@@ -548,6 +548,49 @@ bot.on("chatCreate", (user, message) => {
       });
   }
 });
+bot.on('chatCreate', async(user,message)=>{
+    if(user.id === bot.info.user.id) return;
+    if(message.startsWith("~")){
+        const command = message.replace("~", "");
+        
+        const response = await getAIResponse(command);
+        bot.message.send(response)
+          .catch(e => console.error("[ERROR] Failed to send message:", e));
+    }
+});
+  async function getAIResponse(userMessage) {
+    const apiKey = "AIzaSyDnsSdx0TF0ba7TPHSq0kCe8U0uL9JhrbY";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: `Reply in 1-2 lines only and try to be friend of user and talk like a human: ${userMessage}` }]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 60
+        }
+      })
+    });
+  
+    const data = await response.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    return reply || "No response from Gemini.";
+  }
+  
+  // Example usage:
+  getAIResponse("What is the use of JavaScript?")
+    .then(reply => console.log("AI Reply:", reply))
+    .catch(err => console.error("Error:", err));
+
 bot.on("chatCreate", async (user, message) => {
     if (message === "!assist") {
       bot.message.send(
